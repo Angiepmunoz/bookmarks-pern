@@ -11,7 +11,7 @@ function BookmarkDetails() {
   useEffect(()=>{
     axios.get(`${API}/bookmarks/${id}`).then((response)=>{
       console.log(response.data)
-      setBookmark(response.data[0])
+      setBookmark(response.data)
     }).catch((e)=>{
       console.warn("catch:", e)
     })
