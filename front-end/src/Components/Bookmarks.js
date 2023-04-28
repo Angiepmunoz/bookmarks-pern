@@ -8,9 +8,14 @@ function Bookmarks() {
   const [bookmarks, setBookmarks] = useState([]);
 
   useEffect(() => {
-    axios.get(`${API}/bookmarks`).then((response)=>{
-      setBookmarks(response.data)
-    });
+    axios
+      .get(`${API}/bookmarks`)
+      .then((response) => {
+        setBookmarks(response.data);
+      })
+      .catch((e) => {
+        console.warn("catch", e);
+      });
   }, []);
   return (
     <div className="Bookmarks">
