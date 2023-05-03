@@ -27,6 +27,7 @@ function ReviewForm(props) {
     event.preventDefault();
     props.handleSubmit(review, id);
     if (reviewDetails) {
+        console.log("review id:", reviewDetails.id)
       props.toggleView();
     }
     setReview({
@@ -39,9 +40,9 @@ function ReviewForm(props) {
   };
   return (
     <div className="Edit">
-        {/* renders the children elements of this component   */}
-        {/* <ReviewForm> some child element </ReviewFrom> */}
-      {props.children} 
+      {/* renders the children elements of this component   */}
+      {/* <ReviewForm> some child element </ReviewFrom> */}
+      {props.children}
       <form onSubmit={handleSubmit}>
         <label htmlFor="reviewer">Name:</label>
         <input

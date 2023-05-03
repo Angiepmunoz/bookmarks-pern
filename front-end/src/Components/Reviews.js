@@ -29,17 +29,59 @@ function Reviews() {
       .catch((c) => console.warn("catch", c));
   };
 
+  const handleDelete = (reviewId) => {
+    axios
+      .delete(`${API}/bookmarks/${id}/reviews/${reviewId}`)
+      .then(
+        (response) => {
+          const copyReviewArray = [...reviews];
+          const indexDeletedReview = copyReviewArray.findIndex((review) => {
+            return review.id === reviewId;
+          });
+          copyReviewArray.splice(indexDeletedReview, 1);
+          setReviews(copyReviewArray);
+        },
+        (error) => console.error(error)
+      )
+      .catch((c) => console.warn("catch", c));
+  };
+
+  const handleEdit = (updatedReview) => {
+    console.log(updatedReview);
+    axios
+      .put(`${API}/bookmarks/${id}/reviews/${updatedReview.id}`, updatedReview)
+      .then((response) => {
+        console.log(" in the response");
+        const copyReviewArray = [...reviews];
+        const indexUpdatedReview = copyReviewArray.findIndex((review) => {
+          return review.id === updatedReview.id;
+        });
+        copyReviewArray[indexUpdatedReview] = response.data;
+        setReviews(copyReviewArray);
+      })
+      .catch((c) => console.warn("catch", c));
+  };
+
   return (
-  <section className="Reviews">
-    <h2>Reviews</h2>
-    <ReviewForm handleSubmit={handleAdd}>
-      <h3>Add a New Review</h3>
-    </ReviewForm>
-    {reviews.map((review) => (
-      <Review key={review.id} review={review} />
-    ))}
-  </section>
-);
+    <section className="Reviews">
+      <h2>Reviews</h2>
+      <ReviewForm handleSubmit={handleAdd}>
+        <h3>Add a New Review</h3>
+      </ReviewForm>
+      {reviews.map((review) => (
+        <Review
+          key={review.id}
+          review={review}
+          handleDelete={handleDelete}
+          handleSubmit={handleEdit}
+        />
+      ))}
+    </section>
+  );
 }
+
+// {
+//     viewEditForm ? <SeeEditForm /> : <Review />;
+//   }
 
 export default Reviews;
