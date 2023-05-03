@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Reviews from "./Reviews";
 
 const API = process.env.REACT_APP_API_URL;
 function BookmarkDetails() {
@@ -14,7 +15,7 @@ function BookmarkDetails() {
       .get(`${API}/bookmarks/${id}`)
       .then((response) => {
         console.log(response.data);
-        setBookmark(response.data);
+        setBookmark(response.data[0]);
       })
       .catch((e) => {
         console.warn("catch:", e);
@@ -63,6 +64,7 @@ function BookmarkDetails() {
           <button onClick={handleDelete}>Delete</button>
         </div>
       </div>
+      <Reviews />
     </article>
   );
 }
